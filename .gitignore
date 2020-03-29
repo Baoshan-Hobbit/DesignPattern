@@ -1,6 +1,9 @@
 fig/
 bin/
+
 .gitignore
+test.cc
+
 *.o
 *.a
 *.so

@@ -19,7 +19,7 @@
 class AbstractProduct {
  public:
   virtual ~AbstractProduct() {} // 显示定义父类虚析构函数,子类可直接调用
-  virtual void use() const = 0;  
+  virtual void use() = 0;  
 };
 
 class Product1 : public AbstractProduct {
@@ -27,7 +27,7 @@ class Product1 : public AbstractProduct {
   explicit Product1 (std::string name) : name_(name) {}
   DISALLOW_COPY_AND_ASSIGN(Product1);
 
-  void use() const override;
+  void use() override;
  private:
   std::string name_;
 };
@@ -37,7 +37,7 @@ class Product2 : public AbstractProduct {
   explicit Product2 (std::string name) : name_(name) {}
   DISALLOW_COPY_AND_ASSIGN(Product2);
 
-  void use() const override;
+  void use() override;
  private:
   std::string name_;
 };

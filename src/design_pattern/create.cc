@@ -9,7 +9,7 @@
 #include <memory>
 #include "src/design_pattern/product.h"
 
-AbstractProduct* SimpleFactory::CreateProduct(int arg) const {
+AbstractProduct* SimpleFactory::CreateProduct(int arg) {
   AbstractProduct* abstract_product(nullptr);
   switch (arg) {
     case 1:
@@ -24,10 +24,10 @@ AbstractProduct* SimpleFactory::CreateProduct(int arg) const {
   return abstract_product;
 }
 
-AbstractProduct* Factory1::CreateProduct() const {
+AbstractProduct* Factory1::CreateProduct() {
   return new Product1("product1");
 }
-AbstractProduct* Factory2::CreateProduct() const {
+AbstractProduct* Factory2::CreateProduct() {
   return new Product2("product2");
 }
 

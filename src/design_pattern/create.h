@@ -20,7 +20,7 @@ class SimpleFactory {
   }
   DISALLOW_COPY_AND_ASSIGN(SimpleFactory);
 
-  AbstractProduct* CreateProduct(int arg) const;
+  AbstractProduct* CreateProduct(int arg);
   // deprecated
   //std::shared_ptr<AbstractProduct> CreateProduct(int arg);
   // 函数中创建对象必须在堆上使用new关键字,只返回指针,由消费者决定生命周期
@@ -32,7 +32,7 @@ class SimpleFactory {
 class AbstractFactory {
  public:
   virtual ~AbstractFactory() {}
-  virtual AbstractProduct* CreateProduct() const = 0;
+  virtual AbstractProduct* CreateProduct() = 0;
   // deprecated
   //virtual std::shared_ptr<AbstractProduct> CreateProduct() = 0;
   // 抽象工厂模式,需要定义AbstractProductA, AbstractProductB
@@ -51,7 +51,7 @@ class Factory1 : public AbstractFactory {
   // 具体类都有const关键字，抽象类也要有
   DISALLOW_COPY_AND_ASSIGN(Factory1);
 
-  AbstractProduct* CreateProduct() const override;
+  AbstractProduct* CreateProduct() override;
   // deprecated
   //std::shared_ptr<AbstractProduct> CreateProduct() override;
   //std::shared_ptr<AbstractProduct> CreateProductA() override;
@@ -68,7 +68,7 @@ class Factory2 : public AbstractFactory {
   }
   DISALLOW_COPY_AND_ASSIGN(Factory2);
 
-  AbstractProduct* CreateProduct() const override;
+  AbstractProduct* CreateProduct() override;
   // deprecated
   //std::shared_ptr<AbstractProduct> CreateProduct() override;
   //std::shared_ptr<AbstractProduct> CreateProductA() override;
