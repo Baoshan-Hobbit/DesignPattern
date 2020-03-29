@@ -11,7 +11,7 @@
 // no type,没半毛钱关系
 // 尤其要注意把参数写上,经常忘记写
 #define DISALLOW_COPY_AND_ASSIGN(ClassName) \
-	ClassName(const ClassName&) = delete; \
-	ClassName& operator=(const ClassName&) = delete
+  ClassName(const ClassName&) = delete; \
+  ClassName& operator=(const ClassName&) = delete
 
 #endif // CPLUS_PRACTICE_MACRO_H_

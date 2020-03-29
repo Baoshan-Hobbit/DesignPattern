@@ -9,8 +9,8 @@
 #include <stdio.h>
 
 void Product1::use() const {
-	printf("use product1\n");
+  printf("use product1\n");
 }
 void Product2::use() const {
-	printf("use product2\n");
+  printf("use product2\n");
 }

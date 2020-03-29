@@ -1,7 +1,9 @@
 fig/
 bin/
-
+.gitignore
 *.o
 *.a
 *.so
 *.out
+*.tab
+*.sh

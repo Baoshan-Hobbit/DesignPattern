@@ -18,28 +18,28 @@
 // 4) 只有静态常量数据成员(字面值)
 class AbstractProduct {
  public:
-	virtual ~AbstractProduct() {} // 显示定义父类虚析构函数,子类可直接调用
-	virtual void use() const = 0;	
+  virtual ~AbstractProduct() {} // 显示定义父类虚析构函数,子类可直接调用
+  virtual void use() const = 0;  
 };
 
 class Product1 : public AbstractProduct {
  public:
-	explicit Product1 (std::string name) : name_(name) {}
-	DISALLOW_COPY_AND_ASSIGN(Product1);
+  explicit Product1 (std::string name) : name_(name) {}
+  DISALLOW_COPY_AND_ASSIGN(Product1);
 
-	void use() const override;
+  void use() const override;
  private:
-	std::string name_;
+  std::string name_;
 };
 
 class Product2 : public AbstractProduct {
  public:
-	explicit Product2 (std::string name) : name_(name) {}
-	DISALLOW_COPY_AND_ASSIGN(Product2);
+  explicit Product2 (std::string name) : name_(name) {}
+  DISALLOW_COPY_AND_ASSIGN(Product2);
 
-	void use() const override;
+  void use() const override;
  private:
-	std::string name_;
+  std::string name_;
 };
 
 #endif // CODE_PRACTICE_DESIGN_PATTERN_PRODUCT_H_
