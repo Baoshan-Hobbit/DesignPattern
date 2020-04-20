@@ -13,6 +13,7 @@
 
 int stock = 0;
 
+// 静态初始化
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t produce_cond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t consume_cond = PTHREAD_COND_INITIALIZER;
@@ -20,16 +21,17 @@ pthread_cond_t consume_cond = PTHREAD_COND_INITIALIZER;
 void* Producer(void* arg) {
   while (true) {
     pthread_t tid = pthread_self();
-    pthread_mutex_lock(&mutex);
+    pthread_mutex_lock(&mutex); 
     while (stock >= 10)
       pthread_cond_wait(&produce_cond, &mutex);
     ++stock;
-    printf("%u produce, stock: %d\n", (unsigned int)tid, stock); // 加锁后读全局变量
-    pthread_mutex_unlock(&mutex);
-    pthread_cond_signal(&consume_cond);
-   //sleep(rand() % 3);
+    // printf加锁后读全局变量
+    printf("%u produce, stock: %d\n", (unsigned int)tid, stock); 
+    pthread_mutex_unlock(&mutex); // 释放锁
+    pthread_cond_signal(&consume_cond); 
+   //sleep(rand() % 3); // 睡眠一段时间,主要避免打印太快,方便调试
   }
-  //return nullptr;
+  //return nullptr; // void* 不需要返回值也ok
 }
 
 void* Consumer(void* arg) {
@@ -42,7 +44,7 @@ void* Consumer(void* arg) {
     printf("%u consume, stock: %d\n", (unsigned int)tid, stock);
     pthread_mutex_unlock(&mutex);
     pthread_cond_signal(&produce_cond);
-   //sleep(rand() % 3); //休眠随机时间,方便调试观察
+   //sleep(rand() % 3); 
   }
   //return nullptr;
 }
@@ -70,7 +72,7 @@ int main(int argc, char* argv[]) {
     pthread_t consumer;
     consumers.push_back(consumer);
   }
-  
+
   //while (true) {
   //  // 不能使用auto loop
   //  for (int i=0; i<producers.size(); ++i) {

@@ -33,8 +33,8 @@ void TestThreadPool() {
     //task_list_2.push_back(sell_task_2);
   }
 
-  //FixedThreadPool thread_pool_1(3);
-  DynamicThreadPool thread_pool_1(2, 5, 8);
+  FixedThreadPool thread_pool_1(3);
+  //DynamicThreadPool thread_pool_1(2, 5, 8);
   //ThreadPool thread_pool_2(3);
   //ThreadPool thread_pool_1(2, 5, 8);
   thread_pool_1.set_name("pool_1");
@@ -49,6 +49,7 @@ void TestThreadPool() {
   // sleep(5);
   // 不用static成员变量随机输出结果,原因待查TODO
   thread_pool_1.StopAll();
+  //thread_pool_1.StopAll();
   //thread_pool_2.StopAll();
 }
 

@@ -36,6 +36,10 @@ void* ThreadPool::Run(void* arg) {
 }
 
 void ThreadPool::StopAll() {
+  if (!is_running_) {
+    printf("Alreaady stopped!\n");
+    return;
+  }
   printf("pool size: %d\n", (int)thread_pool_.size());
   for (int i=0; i<thread_pool_.size(); ++i)
     pthread_join(thread_pool_[i], nullptr);
@@ -59,6 +63,7 @@ void FixedThreadPool::Create() {
     pthread_create(&thread, nullptr, Run, (void*)this);
     thread_pool_.push_back(thread);
   } 
+  is_running_ = true;
 }
 
 void DynamicThreadPool::AddTask(Task* task) {
