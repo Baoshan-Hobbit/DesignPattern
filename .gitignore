@@ -1,6 +1,7 @@
 fig/
 bin/
 
+main
 .gitignore
 test.cc
 
