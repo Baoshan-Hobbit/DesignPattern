@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <iostream>
 
 class DynBase {
  public:
@@ -11,11 +12,11 @@ class DynDerived : public DynBase {
  public:
   DynDerived(): counter(0) {}
 
-  virtual uint64_t get_value() const {
+  uint64_t get_value() const override {
     return counter;
   }
 
-  virtual void tick(uint64_t n) {
+  void tick(uint64_t n) override {
     counter += n;
   }
 
@@ -27,12 +28,23 @@ template <typename T>
 class CRTP {
  public:
   uint64_t get_value() const {
-    return static_cast<const T*>(this)->get_value();
+    return impl()->get_value();
   }
 
   void tick(uint64_t n) {
-    return static_cast<T*>(this)->tick(n);
+    return impl()->tick(n);
   }
+
+ private:
+  T* impl() {
+    return static_cast<T*>(this);
+  }
+  const T* impl() const {
+    return static_cast<const T*>(this);
+  }
+
+  CRTP() {}
+  friend T;
 };
 
 class Derived : public CRTP<Derived> {
@@ -50,3 +62,22 @@ class Derived : public CRTP<Derived> {
  private:
   uint64_t counter;
 };
+
+/*
+// typo still compiled and runned, but wrong calling of method
+class Derived1 : public CRTP<Derived> {
+ public:
+  Derived1() : counter(0) {}
+
+  uint64_t get_value() const {
+    return counter;
+  }
+
+  void tick(uint64_t n) {
+    counter += n;
+  }
+
+ private:
+  uint64_t counter;
+};
+*/

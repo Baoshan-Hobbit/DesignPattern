@@ -8,8 +8,9 @@
 #include <chrono>
 #include <utility>
 
+constexpr int N = 4000;
+
 void run_dynamic(DynBase* obj_ptr) {
-  const size_t N = 4000;
   for (size_t i=0; i<N; ++i) {
     for (size_t j=0; j<i; ++j) {
       obj_ptr->tick(j);
@@ -19,7 +20,6 @@ void run_dynamic(DynBase* obj_ptr) {
 
 template <typename T>
 void run_crtp(CRTP<T>* obj_ptr) {
-  const size_t N = 4000;
   for (size_t i=0; i<N; ++i) {
     for (size_t j=0; j<i; ++j) {
       obj_ptr->tick(j);
