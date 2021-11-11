@@ -18,6 +18,9 @@ void run_dynamic(DynBase* obj_ptr) {
   }
 }
 
+/*
+  static interface: use base class, for better performance without dynamic virtual table lookup
+*/
 template <typename T>
 void run_crtp(CRTP<T>* obj_ptr) {
   for (size_t i=0; i<N; ++i) {
@@ -36,6 +39,10 @@ void func_wrapper(FuncType f, Args... args) {
   std::cout << "duration: " << duration << " ms" << std::endl;
 }
 
+/*
+  common method extraction: use concrete class, 
+  crtp class main handle common logic abstraction, which have to use other member method.
+*/
 void run_concrete_a(PartConcreteA* pca_ptr) {
   pca_ptr->scale(2.0);
   std::cout << pca_ptr->get_value() << std::endl;
