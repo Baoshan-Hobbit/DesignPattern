@@ -28,12 +28,22 @@ void run_crtp(CRTP<T>* obj_ptr) {
 }
 
 template <typename FuncType, typename... Args>
-void run_benchmark(FuncType f, Args... args) {
+void func_wrapper(FuncType f, Args... args) {
   auto start = std::chrono::steady_clock::now();
   f(std::forward<Args>(args)...);
   auto end = std::chrono::steady_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
   std::cout << "duration: " << duration << " ms" << std::endl;
+}
+
+void run_concrete_a(PartConcreteA* pca_ptr) {
+  pca_ptr->scale(2.0);
+  std::cout << pca_ptr->get_value() << std::endl;
+}
+
+void run_concrete_b(PartConcreteB* pcb_ptr) {
+  pcb_ptr->scale(2.0);
+  std::cout << pcb_ptr->get_value() << std::endl;
 }
 
 int main() {
@@ -62,6 +72,7 @@ int main() {
   Complex<double> cd5(a, b);
   */
 
+  /*
   DynDerived dyn_derived;
   Derived derived;
 
@@ -69,8 +80,14 @@ int main() {
   run_crtp(&derived);
 
   // -O2 clang, crtp is faster
-  run_benchmark(run_dynamic, &dyn_derived);
-  run_benchmark(run_crtp<Derived>, &derived);
+  func_wrapper(run_dynamic, &dyn_derived);
+  func_wrapper(run_crtp<Derived>, &derived);
+  */
 
+  PartConcreteA pc_a(1.0);
+  PartConcreteB pc_b(2.0);
+
+  func_wrapper(run_concrete_a, &pc_a);
+  func_wrapper(run_concrete_b, &pc_b);
   return 0;
 }
