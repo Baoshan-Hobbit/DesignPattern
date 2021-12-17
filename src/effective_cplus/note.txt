@@ -1,0 +1,14 @@
+1. 使用 constexpr 替换 const
+  目的： 编译时求值减少不必要的运行时开销
+  用例：<limits>
+  使用场景：
+  - 常量
+  - 定义数组，指定大小
+  - 仅返回字面值的函数
+  - 简单求值的函数
+  - 模板参数，value parameter
+
+2. enum class
+  目的：相比于 enum 增加 scope 和 type
+
+3. inline
