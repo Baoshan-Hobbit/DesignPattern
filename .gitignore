@@ -1,8 +1,11 @@
 fig/
 bin/
+build/
+.vscode/
 
 main
 .gitignore
+compile_commands.json
 test.cc
 
 *.o
@@ -11,3 +14,4 @@ test.cc
 *.out
 *.tab
 *.sh
+.cache

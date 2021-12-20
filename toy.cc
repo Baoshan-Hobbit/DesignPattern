@@ -2,6 +2,8 @@
 #include <memory>
 #include <string>
 
+#include "effective_cplus/demo.h"
+
 class Resource {
  public:
   int a_;
@@ -24,5 +26,6 @@ int main() {
   // set_resource(resource_ptr);
   // std::cout << resource_ptr->a_ << std::endl;
 
-  test_string();
+  // test_string();
+  print();
 }

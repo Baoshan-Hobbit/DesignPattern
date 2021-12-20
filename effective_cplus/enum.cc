@@ -20,10 +20,10 @@ void test_switch(Warning warn) {
   }
 }
 
-int main() {
-  test_switch(Warning::Blue);
+// int main() {
+//   test_switch(Warning::Blue);
 
-  std::cout << sizeof(Warning) << std::endl;
-  std::cout << sizeof(Warning::Blue) << std::endl;
-  std::cout << sizeof(CharFlag) << std::endl;
-}
+//   std::cout << sizeof(Warning) << std::endl;
+//   std::cout << sizeof(Warning::Blue) << std::endl;
+//   std::cout << sizeof(CharFlag) << std::endl;
+// }
