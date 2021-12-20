@@ -1,4 +1,5 @@
 #pragma once
+
 #include <cstdint>
 #include <iostream>
 
@@ -10,7 +11,8 @@ class DynBase {
 
 class DynDerived : public DynBase {
  public:
-  DynDerived(): counter(0) {}
+  DynDerived() : counter(0) {
+  }
 
   uint64_t get_value() const override {
     return counter;
@@ -43,13 +45,15 @@ class CRTP {
     return static_cast<const T*>(this);
   }
 
-  CRTP() {}
+  CRTP() {
+  }
   friend T;
 };
 
 class Derived : public CRTP<Derived> {
  public:
-  Derived() : counter(0) {}
+  Derived() : counter(0) {
+  }
 
   uint64_t get_value() const {
     return counter;
@@ -88,7 +92,7 @@ class CommonFuncClass {
   void scale(double ratio);
   void square();
   void set_opposite();
- 
+
  private:
   T* impl() {
     return static_cast<T*>(this);
@@ -113,12 +117,13 @@ void CommonFuncClass<T>::square() {
 
 template <typename T>
 void CommonFuncClass<T>::set_opposite() {
-  impl()->set_value(impl()->get_value() * -1); 
+  impl()->set_value(impl()->get_value() * -1);
 }
 
 class PartConcreteA : public CommonFuncClass<PartConcreteA> {
  public:
-  PartConcreteA(double value) : value_(value) {}
+  PartConcreteA(double value) : value_(value) {
+  }
 
   double get_value() const {
     return value_;
@@ -133,7 +138,8 @@ class PartConcreteA : public CommonFuncClass<PartConcreteA> {
 
 class PartConcreteB : public CommonFuncClass<PartConcreteB> {
  public:
-  PartConcreteB(double value) : value_(value) {}
+  PartConcreteB(double value) : value_(value) {
+  }
 
   double get_value() const {
     return value_;

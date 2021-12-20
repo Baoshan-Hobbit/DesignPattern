@@ -1,14 +1,7 @@
-/*************************************************************************
-  > File Name: producer_consumer.cc
-  > Author: baoshan
-  > Mail: baoshanw@foxmail.com 
-  > Created Time: 2020年04月15日 星期三 10时15分01秒
- ************************************************************************/
-
 #include <pthread.h>
 #include <stdio.h>
-#include <stdlib.h> // rand()
-#include <unistd.h> // sleep()
+#include <stdlib.h>  // rand()
+#include <unistd.h>  // sleep()
 #include <vector>
 
 int stock = 0;
@@ -21,17 +14,17 @@ pthread_cond_t consume_cond = PTHREAD_COND_INITIALIZER;
 void* Producer(void* arg) {
   while (true) {
     pthread_t tid = pthread_self();
-    pthread_mutex_lock(&mutex); 
+    pthread_mutex_lock(&mutex);
     while (stock >= 10)
       pthread_cond_wait(&produce_cond, &mutex);
     ++stock;
     // printf加锁后读全局变量
-    printf("%u produce, stock: %d\n", (unsigned int)tid, stock); 
-    pthread_mutex_unlock(&mutex); // 释放锁
-    pthread_cond_signal(&consume_cond); 
-   //sleep(rand() % 3); // 睡眠一段时间,主要避免打印太快,方便调试
+    printf("%u produce, stock: %d\n", (unsigned int)tid, stock);
+    pthread_mutex_unlock(&mutex);  // 释放锁
+    pthread_cond_signal(&consume_cond);
+    // sleep(rand() % 3); // 睡眠一段时间,主要避免打印太快,方便调试
   }
-  //return nullptr; // void* 不需要返回值也ok
+  // return nullptr; // void* 不需要返回值也ok
 }
 
 void* Consumer(void* arg) {
@@ -44,9 +37,9 @@ void* Consumer(void* arg) {
     printf("%u consume, stock: %d\n", (unsigned int)tid, stock);
     pthread_mutex_unlock(&mutex);
     pthread_cond_signal(&produce_cond);
-   //sleep(rand() % 3); 
+    // sleep(rand() % 3);
   }
-  //return nullptr;
+  // return nullptr;
 }
 
 void TestAutoLoop() {
@@ -54,7 +47,7 @@ void TestAutoLoop() {
   // auto loop 为每个元素创建了拷贝,地址发生变化
   for (int num : nums)
     printf("%p\n", &num);
-  for (int i=0; i<nums.size(); ++i)
+  for (int i = 0; i < nums.size(); ++i)
     printf("%p\n", &nums[i]);
 }
 
@@ -64,20 +57,20 @@ int main(int argc, char* argv[]) {
   std::vector<pthread_t> producers;
   std::vector<pthread_t> consumers;
 
-  for (int i=0; i<num_producer; ++i) {
+  for (int i = 0; i < num_producer; ++i) {
     pthread_t producer;
     producers.push_back(producer);
   }
-  for (int i=0; i<num_consumer; ++i) {
+  for (int i = 0; i < num_consumer; ++i) {
     pthread_t consumer;
     consumers.push_back(consumer);
   }
 
-  //while (true) {
+  // while (true) {
   //  // 不能使用auto loop
   //  for (int i=0; i<producers.size(); ++i) {
   //    pthread_create(&producers[i], nullptr, Producer, nullptr);
-  //    pthread_detach(producers[i]); 
+  //    pthread_detach(producers[i]);
   //  }
   //  for (int i=0; i<consumers.size(); ++i) {
   //    pthread_create(&consumers[i], nullptr, Consumer, nullptr);
@@ -86,21 +79,21 @@ int main(int argc, char* argv[]) {
   //}
 
   // 不能使用auto loop
-  for (int i=0; i<producers.size(); ++i) {
+  for (int i = 0; i < producers.size(); ++i) {
     pthread_create(&producers[i], nullptr, Producer, nullptr);
-    //pthread_detach(producers[i]); 
+    // pthread_detach(producers[i]);
   }
-  for (int i=0; i<consumers.size(); ++i) {
+  for (int i = 0; i < consumers.size(); ++i) {
     pthread_create(&consumers[i], nullptr, Consumer, nullptr);
-    //pthread_detach(consumers[i]);
+    // pthread_detach(consumers[i]);
   }
 
-  for (int i=0; i<producers.size(); ++i)
+  for (int i = 0; i < producers.size(); ++i)
     pthread_join(producers[i], nullptr);
-  for (int i=0; i<consumers.size(); ++i)
+  for (int i = 0; i < consumers.size(); ++i)
     pthread_join(consumers[i], nullptr);
 
-//  TestAutoLoop(); 
+  //  TestAutoLoop();
 
   return 0;
 }

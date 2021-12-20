@@ -1,11 +1,12 @@
 #pragma once
+
 #include <iostream>
 
-/* 
+/*
 2. member templates
 
 - allow type conversion implicitly happen with use of template.
-- default constructor/copy constructor/move constructor generatation rule is 
+- default constructor/copy constructor/move constructor generatation rule is
   complicated, just explicitly declare them.
 */
 template <typename Scalar>
