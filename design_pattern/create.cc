@@ -1,13 +1,6 @@
-/*************************************************************************
-  > File Name: factory.cc
-  > Author: baoshan
-  > Mail: baoshanw@foxmail.com 
-  > Created Time: 2020年03月10日 星期二 16时08分22秒
- ************************************************************************/
-
-#include "src/design_pattern/create.h"
+#include "design_pattern/create.h"
 #include <memory>
-#include "src/design_pattern/product.h"
+#include "design_pattern/product.h"
 
 AbstractProduct* SimpleFactory::CreateProduct(int arg) {
   AbstractProduct* abstract_product(nullptr);
@@ -32,7 +25,7 @@ AbstractProduct* Factory2::CreateProduct() {
 }
 
 // deprecated
-//std::shared_ptr<AbstractProduct> SimpleFactory::CreateProduct(int arg) {
+// std::shared_ptr<AbstractProduct> SimpleFactory::CreateProduct(int arg) {
 //  // shared_ptr要声明后再使用,避免直接在参数或返回值中实例化,
 //  // 类似于指针先声明后赋值
 //  // 如 return std::make_shared<AbstractProduct>()是非法的,
@@ -41,7 +34,7 @@ AbstractProduct* Factory2::CreateProduct() {
 //  switch (arg) {
 //    case 1:
 //      product = std::make_shared<Product1>("product1");
-//      break; 
+//      break;
 //    case 2:
 //      product = std::make_shared<Product2>("product2");
 //      break;
@@ -51,11 +44,11 @@ AbstractProduct* Factory2::CreateProduct() {
 //  return product;
 //}
 
-//std::shared_ptr<AbstractProduct> Factory1::CreateProduct() {
+// std::shared_ptr<AbstractProduct> Factory1::CreateProduct() {
 //  return std::make_shared<Product1>("product1");
 //}
 //
-//std::shared_ptr<AbstractProduct> Factory2::CreateProduct() {
+// std::shared_ptr<AbstractProduct> Factory2::CreateProduct() {
 //  return std::make_shared<Product2>("product2");
 //}
 
@@ -64,7 +57,8 @@ bool ConcreteBuilder::MakeFood() {
   return true;
 }
 bool ConcreteBuilder::MakeDrink() {
-  if (humbger_->get_food() != "chicken") return false;
+  if (humbger_->get_food() != "chicken")
+    return false;
   humbger_->set_drink("cola");
   return true;
 }

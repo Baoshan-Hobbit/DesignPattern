@@ -1,15 +1,9 @@
-/*************************************************************************
-  > File Name: factory.h
-  > Author: baoshan
-  > Mail: baoshanw@foxmail.com 
-  > Created Time: 2020年03月10日 星期二 15时17分25秒
- ************************************************************************/
-#ifndef CPLUS_PRACTICE_DESIGN_PATTERN_CREATE_H_
-#define CPLUS_PRACTICE_DESIGN_PATTERN_CREATE_H_
+#pragma once
 
 #include <memory>
-#include "src/macro.h"
-#include "src/design_pattern/product.h"
+
+#include "design_pattern/product.h"
+#include "macro.h"
 
 class SimpleFactory {
  public:
@@ -22,23 +16,25 @@ class SimpleFactory {
 
   AbstractProduct* CreateProduct(int arg);
   // deprecated
-  //std::shared_ptr<AbstractProduct> CreateProduct(int arg);
+  // std::shared_ptr<AbstractProduct> CreateProduct(int arg);
   // 函数中创建对象必须在堆上使用new关键字,只返回指针,由消费者决定生命周期
 
  private:
-  SimpleFactory() {}
+  SimpleFactory() {
+  }
 };
 
 class AbstractFactory {
  public:
-  virtual ~AbstractFactory() {}
+  virtual ~AbstractFactory() {
+  }
   virtual AbstractProduct* CreateProduct() = 0;
   // deprecated
-  //virtual std::shared_ptr<AbstractProduct> CreateProduct() = 0;
+  // virtual std::shared_ptr<AbstractProduct> CreateProduct() = 0;
   // 抽象工厂模式,需要定义AbstractProductA, AbstractProductB
   // 两个抽象产品类
-  //virtual std::shared_ptr<AbstractProduct> CreateProductA() = 0;
-  //virtual std::shared_ptr<AbstractProduct> CreateProductB() = 0;
+  // virtual std::shared_ptr<AbstractProduct> CreateProductA() = 0;
+  // virtual std::shared_ptr<AbstractProduct> CreateProductB() = 0;
 };
 
 class Factory1 : public AbstractFactory {
@@ -53,11 +49,12 @@ class Factory1 : public AbstractFactory {
 
   AbstractProduct* CreateProduct() override;
   // deprecated
-  //std::shared_ptr<AbstractProduct> CreateProduct() override;
-  //std::shared_ptr<AbstractProduct> CreateProductA() override;
-  //std::shared_ptr<AbstractProduct> CreateProductB() override;
+  // std::shared_ptr<AbstractProduct> CreateProduct() override;
+  // std::shared_ptr<AbstractProduct> CreateProductA() override;
+  // std::shared_ptr<AbstractProduct> CreateProductB() override;
  private:
-  Factory1() {}
+  Factory1() {
+  }
 };
 
 class Factory2 : public AbstractFactory {
@@ -70,23 +67,33 @@ class Factory2 : public AbstractFactory {
 
   AbstractProduct* CreateProduct() override;
   // deprecated
-  //std::shared_ptr<AbstractProduct> CreateProduct() override;
-  //std::shared_ptr<AbstractProduct> CreateProductA() override;
-  //std::shared_ptr<AbstractProduct> CreateProductB() override
+  // std::shared_ptr<AbstractProduct> CreateProduct() override;
+  // std::shared_ptr<AbstractProduct> CreateProductA() override;
+  // std::shared_ptr<AbstractProduct> CreateProductB() override
  private:
-  Factory2() {}
+  Factory2() {
+  }
 };
 
 // 建造者模式
 class Humbger {
  public:
-  Humbger() {}
+  Humbger() {
+  }
   DISALLOW_COPY_AND_ASSIGN(Humbger);
 
-  void set_food(const std::string& food) { food_ = food; }
-  void set_drink(const std::string& drink) { drink_ = drink; }
-  std::string get_food() const { return food_; }
-  std::string get_drink() const { return drink_; }
+  void set_food(const std::string& food) {
+    food_ = food;
+  }
+  void set_drink(const std::string& drink) {
+    drink_ = drink;
+  }
+  std::string get_food() const {
+    return food_;
+  }
+  std::string get_drink() const {
+    return drink_;
+  }
 
  private:
   std::string food_;
@@ -95,15 +102,17 @@ class Humbger {
 
 class Builder {
  public:
-  virtual ~Builder() {}
-  bool get_humbger() { 
+  virtual ~Builder() {
+  }
+  bool get_humbger() {
     bool food = MakeFood();
     bool drink = MakeDrink();
     return food && drink;
   }
 
  protected:
-  Builder(Humbger* humbger) : humbger_(humbger) {}
+  Builder(Humbger* humbger) : humbger_(humbger) {
+  }
   virtual bool MakeFood() = 0;
   virtual bool MakeDrink() = 0;
 
@@ -113,7 +122,8 @@ class Builder {
 
 class ConcreteBuilder : public Builder {
  public:
-  ConcreteBuilder(Humbger* humbger) : Builder(humbger) {}
+  ConcreteBuilder(Humbger* humbger) : Builder(humbger) {
+  }
   DISALLOW_COPY_AND_ASSIGN(ConcreteBuilder);
 
  private:
@@ -124,27 +134,38 @@ class ConcreteBuilder : public Builder {
 // 原型模式
 class Prototype {
  public:
-  virtual ~Prototype() {}
+  virtual ~Prototype() {
+  }
   virtual Prototype* Clone() = 0;
 };
 
 class ConcretePrototype : public Prototype {
  public:
-  ConcretePrototype() : type_(1) {}
-  ConcretePrototype(const std::string& big_element, int type) 
-    : big_element_(big_element), type_(type) {}
+  ConcretePrototype() : type_(1) {
+  }
+  ConcretePrototype(const std::string& big_element, int type)
+      : big_element_(big_element), type_(type) {
+  }
   DISALLOW_COPY_AND_ASSIGN(ConcretePrototype);
 
-  void OtherMethod() { printf("other method.\n"); }
-  void set_big_element(const std::string& elem) { big_element_ = elem; }
-  void set_type(int type) { type_ = type; }
-  std::string get_big_element() const { return big_element_; }
-  int get_type() const { return type_; }
+  void OtherMethod() {
+    printf("other method.\n");
+  }
+  void set_big_element(const std::string& elem) {
+    big_element_ = elem;
+  }
+  void set_type(int type) {
+    type_ = type;
+  }
+  std::string get_big_element() const {
+    return big_element_;
+  }
+  int get_type() const {
+    return type_;
+  }
   ConcretePrototype* Clone() override;
 
  private:
   std::string big_element_;
   int type_;
 };
-
-#endif // CPLUS_PRACTICE_DESIGN_PATTERN_CREATE_H_

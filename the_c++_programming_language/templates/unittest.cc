@@ -1,18 +1,18 @@
+#include "crtp.h"
 #include "member_template.h"
 #include "static.h"
-#include "crtp.h"
 
+#include <chrono>
 #include <ctime>
 #include <functional>
 #include <iostream>
-#include <chrono>
 #include <utility>
 
 constexpr int N = 4000;
 
 void run_dynamic(DynBase* obj_ptr) {
-  for (size_t i=0; i<N; ++i) {
-    for (size_t j=0; j<i; ++j) {
+  for (size_t i = 0; i < N; ++i) {
+    for (size_t j = 0; j < i; ++j) {
       obj_ptr->tick(j);
     }
   }
@@ -23,8 +23,8 @@ void run_dynamic(DynBase* obj_ptr) {
 */
 template <typename T>
 void run_crtp(CRTP<T>* obj_ptr) {
-  for (size_t i=0; i<N; ++i) {
-    for (size_t j=0; j<i; ++j) {
+  for (size_t i = 0; i < N; ++i) {
+    for (size_t j = 0; j < i; ++j) {
       obj_ptr->tick(j);
     }
   }
@@ -40,7 +40,7 @@ void func_wrapper(FuncType f, Args... args) {
 }
 
 /*
-  common method extraction: use concrete class, 
+  common method extraction: use concrete class,
   crtp class main handle common logic abstraction, which have to use other member method.
 */
 void run_concrete_a(PartConcreteA* pca_ptr) {
@@ -53,7 +53,7 @@ void run_concrete_b(PartConcreteB* pcb_ptr) {
   std::cout << pcb_ptr->get_value() << std::endl;
 }
 
-int main() {
+void test_crtp() {
   /*
   X<int> x;
   std::cout << x.m1 << std::endl;
@@ -96,5 +96,4 @@ int main() {
 
   func_wrapper(run_concrete_a, &pc_a);
   func_wrapper(run_concrete_b, &pc_b);
-  return 0;
 }

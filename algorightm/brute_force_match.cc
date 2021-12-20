@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
 
-void brute_force_search(const std::string &text, const std::string &pattern) {
+void brute_force_search(const std::string& text, const std::string& pattern) {
   size_t text_len = text.size();
   size_t pat_len = pattern.size();
 
   if (text_len < pat_len) {
-    std::cout << "text length is less than pattern length: " << text_len
-              << " vs " << pat_len << std::endl;
+    std::cout << "text length is less than pattern length: " << text_len << " vs " << pat_len
+              << std::endl;
     return;
   }
 
@@ -22,11 +22,4 @@ void brute_force_search(const std::string &text, const std::string &pattern) {
     }
     ++i;
   }
-}
-
-int main() {
-  std::string text = "abcab";
-  std::string pattern = "ab";
-  brute_force_search(text, pattern);
-  return 0;
 }
