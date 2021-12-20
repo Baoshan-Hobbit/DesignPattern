@@ -1,6 +1,6 @@
-#include "crtp.h"
-#include "member_template.h"
-#include "static.h"
+#include "the_c++_programming_language/templates/crtp.h"
+#include "the_c++_programming_language/templates/member_template.h"
+#include "the_c++_programming_language/templates/static.h"
 
 #include <chrono>
 #include <ctime>

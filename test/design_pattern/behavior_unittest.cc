@@ -1,4 +1,5 @@
 #include "design_pattern/behavior.h"
+
 #include <stdio.h>
 
 void TestBehavior() {

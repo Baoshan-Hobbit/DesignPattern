@@ -1,4 +1,5 @@
 #include "design_pattern/structure.h"
+
 #include <stdio.h>
 #include <memory>
 

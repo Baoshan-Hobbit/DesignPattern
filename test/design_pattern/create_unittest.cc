@@ -1,7 +1,8 @@
 #include "design_pattern/create.h"
+#include "design_pattern/product.h"
+
 #include <stdio.h>
 #include <memory>
-#include "design_pattern/product.h"
 
 // c++静态语言,即使未使用函数,也会检查函数定义
 void TestFactory() {

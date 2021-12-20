@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "thread_pool.h"
+#include "concurrent/thread_pool.h"
 
 void TestIntToString() {
   char str[10];
