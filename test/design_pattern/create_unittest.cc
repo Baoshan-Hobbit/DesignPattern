@@ -1,7 +1,7 @@
 #include "design_pattern/create.h"
 #include "design_pattern/product.h"
 
-#include <stdio.h>
+#include <iostream>
 #include <memory>
 
 // c++静态语言,即使未使用函数,也会检查函数定义
@@ -19,23 +19,23 @@ void TestFactory() {
   // if (product.get() != nullptr) {
   //  product->use();
   //} else {
-  //  printf("create product failed!\n");
+  //  // printf("create product failed!\n");
   //}
 
   // Humbger humbger;
   // ConcreteBuilder humbger_builder(&humbger);
   ////humbger_builder.MakeFood();
-  ////printf("%s\n", humbger.get_food().c_str());
+  ////// printf("%s\n", humbger.get_food().c_str());
   // if (humbger_builder.get_humbger()) {
-  //  printf("food: %s, drink: %s\n", humbger.get_food().c_str(), humbger.get_drink().c_str());
+  //  // printf("food: %s, drink: %s\n", humbger.get_food().c_str(), humbger.get_drink().c_str());
   //} else {
-  //  printf("build failed\n");
+  //  // printf("build failed\n");
   //}
 
   ConcretePrototype concrete_prototype("bigbigbig", 5);
   Prototype* obj_base = concrete_prototype.Clone();
   ConcretePrototype* obj = dynamic_cast<ConcretePrototype*>(obj_base);
-  printf("big_element: %s, type: %d\n", obj->get_big_element().c_str(), obj->get_type());
+  // printf("big_element: %s, type: %d\n", obj->get_big_element().c_str(), obj->get_type());
 }
 
 class Unfinished;

@@ -1,7 +1,7 @@
 #include <pthread.h>
-#include <stdio.h>
 #include <stdlib.h>  // rand()
 #include <unistd.h>  // sleep()
+#include <iostream>
 #include <vector>
 
 int stock = 0;
@@ -19,7 +19,7 @@ void* Producer(void* arg) {
       pthread_cond_wait(&produce_cond, &mutex);
     ++stock;
     // printf加锁后读全局变量
-    printf("%u produce, stock: %d\n", (unsigned int)tid, stock);
+    // printf("%u produce, stock: %d\n", (unsigned int)tid, stock);
     pthread_mutex_unlock(&mutex);  // 释放锁
     pthread_cond_signal(&consume_cond);
     // sleep(rand() % 3); // 睡眠一段时间,主要避免打印太快,方便调试
@@ -34,7 +34,7 @@ void* Consumer(void* arg) {
     while (stock <= 4)
       pthread_cond_wait(&consume_cond, &mutex);
     --stock;
-    printf("%u consume, stock: %d\n", (unsigned int)tid, stock);
+    // printf("%u consume, stock: %d\n", (unsigned int)tid, stock);
     pthread_mutex_unlock(&mutex);
     pthread_cond_signal(&produce_cond);
     // sleep(rand() % 3);
@@ -46,9 +46,9 @@ void TestAutoLoop() {
   std::vector<int> nums = {1, 2, 8};
   // auto loop 为每个元素创建了拷贝,地址发生变化
   for (int num : nums)
-    printf("%p\n", &num);
-  for (int i = 0; i < nums.size(); ++i)
-    printf("%p\n", &nums[i]);
+    // printf("%p\n", &num);
+    for (int i = 0; i < nums.size(); ++i)
+  // printf("%p\n", &nums[i]);
 }
 
 int main(int argc, char* argv[]) {

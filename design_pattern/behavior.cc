@@ -1,5 +1,5 @@
 #include "design_pattern/behavior.h"
-#include <stdio.h>
+#include <iostream>
 #include <map>
 #include <string>
 
@@ -38,17 +38,17 @@ ConcreteSubscriber::ConcreteSubscriber(const std::string& name,
 }
 void ConcreteSubscriber::Update() {
   int state = publisher_content_->get_state();
-  printf("subscriber name: %s, publisher state: %d\n", name_.c_str(), state);
+  // printf("subscriber name: %s, publisher state: %d\n", name_.c_str(), state);
 }
 
 void Receiver::On() {
-  printf("Receiver on.\n");
+  // printf("Receiver on.\n");
 }
 void Receiver::Off() {
-  printf("Receiver off.\n");
+  // printf("Receiver off.\n");
 }
 void Receiver::Alter() {
-  printf("Receiver alter.\n");
+  // printf("Receiver alter.\n");
 }
 void OnCommand::Execute() {
   receiver_->On();
@@ -77,8 +77,8 @@ void Invoker::Execute() {
 
 // void Context::set_policy(Policy* policy) { policy_ = policy; }
 // void Context::Run() { policy_->Execute(); }
-// void PolicyA::Execute() { printf("policy A execute.\n"); }
-// void PolicyB::Execute() { printf("policy B execute.\n"); }
+// void PolicyA::Execute() { // printf("policy A execute.\n"); }
+// void PolicyB::Execute() { // printf("policy B execute.\n"); }
 
 Context::Context() : state_(&ClosedState::GetInstance()) {
   // state_ = &ClosedState::GetInstance();
@@ -87,21 +87,21 @@ void Context::PassiveOpen() {
   if (state_->get_name() == "closed") {
     state_->OnPassiveOpen(this);
   } else {
-    printf("wrong state, should be CLOSED.\n");
+    // printf("wrong state, should be CLOSED.\n");
   }
 }
 void Context::ActiveOpen() {
   if (state_->get_name() == "closed") {
     state_->OnActiveOpen(this);
   } else {
-    printf("wrong state, should be CLOSED.\n");
+    // printf("wrong state, should be CLOSED.\n");
   }
 }
 void Context::SynRecv() {
   if (state_->get_name() == "listen") {
     state_->OnSynRecv(this);
   } else {
-    printf("wrong state, should be LISTEN.\n");
+    // printf("wrong state, should be LISTEN.\n");
   }
 }
 void Context::Close() {
@@ -134,7 +134,7 @@ void Mediator::RegisterCollege(int id, College* college) {
     college_list_.insert(std::make_pair(id, college));
     college->set_mediator(this);
   } else {
-    printf("%d already registered.\n", id);
+    // printf("%d already registered.\n", id);
   }
 }
 void ConcreteMediator::Operate(int id, const std::string& msg) {
@@ -143,19 +143,19 @@ void ConcreteMediator::Operate(int id, const std::string& msg) {
     College* college_recv = it->second;
     college_recv->RecvMsg(msg);
   } else {
-    printf("college(receiver) %d not registered\n", id);
+    // printf("college(receiver) %d not registered\n", id);
   }
 }
 void ConcreteCollege::SendMsg(int id, const std::string& msg) {
   mediator_->Operate(id, msg);
 }
 void ConcreteCollege::RecvMsg(const std::string& msg) {
-  printf("[recv] %s\n", msg.c_str());
+  // printf("[recv] %s\n", msg.c_str());
 }
 
 void Leader::HandleRequest(Request* request) {
   if (request->get_type() == "vocation" && request->get_content() < 3) {
-    printf("%s approved: %s request %d vocation\n",
+    // printf("%s approved: %s request %d vocation\n",
            name_.c_str(),
            request->get_name().c_str(),
            request->get_content());
@@ -167,7 +167,7 @@ void Leader::HandleRequest(Request* request) {
 void Inspector::HandleRequest(Request* request) {
   if (request->get_type() == "vocation" && request->get_content() > 3 &&
       request->get_content() < 7) {
-    printf("%s approved: %s request %d vocation\n",
+    // printf("%s approved: %s request %d vocation\n",
            name_.c_str(),
            request->get_name().c_str(),
            request->get_content());
@@ -179,18 +179,18 @@ void Inspector::HandleRequest(Request* request) {
 void Manager::HandleRequest(Request* request) {
   if (request->get_type() == "vocation") {
     // printf容易忘记\n和string转char*
-    printf("%s approved: %s request %d vocation\n",
+    // printf("%s approved: %s request %d vocation\n",
            name_.c_str(),
            request->get_name().c_str(),
            request->get_content());
   } else if (request->get_type() == "pay raise") {
     if (request->get_content() < 1000) {
-      printf("%s approved: %s request %d pay raise\n",
+      // printf("%s approved: %s request %d pay raise\n",
              name_.c_str(),
              request->get_name().c_str(),
              request->get_content());
     } else {
-      printf("%s denied: %s request %d pay raise\n",
+      // printf("%s denied: %s request %d pay raise\n",
              name_.c_str(),
              request->get_name().c_str(),
              request->get_content());
@@ -204,7 +204,7 @@ void Manager::HandleRequest(Request* request) {
 void Chess::Play(int x, int y, const std::string& label) {
   Originator originator(x, y, label);
   std::shared_ptr<Memorandum> memory(originator.Save());
-  printf("Play\n");
+  // printf("Play\n");
   originator.Show();
   int index = caretaker_->get_index();
   if (index == caretaker_->GetSize() - 1) {
@@ -221,7 +221,7 @@ void Chess::Undo() {
   Originator originator;
   Memorandum* memory = caretaker_->GetMemory(current - 1);
   originator.Restore(memory);
-  printf("Undo\n");
+  // printf("Undo\n");
   originator.Show();
   caretaker_->set_index(current - 1);
   state_ = "undo";
@@ -232,30 +232,30 @@ void Chess::Redo() {
     int current = caretaker_->get_index();
     Originator originator;
     originator.Restore(caretaker_->GetMemory(current + 1));
-    printf("Redo\n");
+    // printf("Redo\n");
     originator.Show();
     caretaker_->set_index(current + 1);
     state_ = "redo";
   } else {
-    printf("must follow undo\n");
+    // printf("must follow undo\n");
   }
 }
 
 void ConcreteVisitorA::Visit(ConcreteElementA* element) {
   std::string content = element->Get();
-  printf("A visit %s.\n", content.c_str());
+  // printf("A visit %s.\n", content.c_str());
 }
 void ConcreteVisitorA::Visit(ConcreteElementB* element) {
   std::string content = element->Get();
-  printf("A visit %s.\n", content.c_str());
+  // printf("A visit %s.\n", content.c_str());
 }
 void ConcreteVisitorB::Visit(ConcreteElementA* element) {
   std::string content = element->Get();
-  printf("B visit %s.\n", content.c_str());
+  // printf("B visit %s.\n", content.c_str());
 }
 void ConcreteVisitorB::Visit(ConcreteElementB* element) {
   std::string content = element->Get();
-  printf("B visit %s.\n", content.c_str());
+  // printf("B visit %s.\n", content.c_str());
 }
 void ConcreteElementA::Accept(Visitor* visitor) {
   visitor->Visit(this);

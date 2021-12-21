@@ -175,10 +175,10 @@ class Proxy : public Subject {
 
  private:
   void PreRequest() {
-    printf("Before request.\n");
+    // printf("Before request.\n");
   }
   void AfterRequest() {
-    printf("After request.\n");
+    // printf("After request.\n");
   }
 
  private:

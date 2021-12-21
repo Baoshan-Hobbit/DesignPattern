@@ -1,9 +1,9 @@
 #include "design_pattern/product.h"
-#include <stdio.h>
+#include <iostream>
 
 void Product1::use() {
-  printf("use product1\n");
+  std::cout << "use " << name_ << std::endl;
 }
 void Product2::use() {
-  printf("use product2\n");
+  std::cout << "use " << name_ << std::endl;
 }

@@ -1,6 +1,6 @@
 #include "design_pattern/structure.h"
 
-#include <stdio.h>
+#include <iostream>
 #include <memory>
 
 void TestStructure() {
@@ -47,7 +47,8 @@ void TestStructure() {
   FlyWeight* bee_2 = factory.CreateFlyWeight("bee");
   bee_2->Operate("dance");
   size_t n_objects = factory.get_count();
-  printf("total object num: %d\n", static_cast<int>(n_objects));
+  // printf("total object num: %d\n", static_cast<int>(n_objects));
   // 新new出的对象地址时nil和插入进pool的对象地址是不一致的
-  printf("butterfly: %p, butterfly_2: %p, butterfly_3: %p\n", butterfly, butterfly_2, butterfly_3);
+  // printf("butterfly: %p, butterfly_2: %p, butterfly_3: %p\n", butterfly, butterfly_2,
+  // butterfly_3);
 }
