@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <unistd.h>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -7,10 +7,10 @@
 
 void TestIntToString() {
   char str[10];
-  sprintf(str, "%d", 2);
-  printf("%s\n", str);
-  std::string apple = "apple_" + std::string(str);
-  printf("%s\n", apple.c_str());
+  s  // printf(str, "%d", 2);
+      // printf("%s\n", str);
+      std::string apple = "apple_" + std::string(str);
+  // printf("%s\n", apple.c_str());
 }
 
 void TestThreadPool() {
@@ -18,8 +18,8 @@ void TestThreadPool() {
   // std::vector<SellTask> task_list_2;
   for (int i = 0; i < 10; ++i) {
     char str[10];
-    sprintf(str, "%d", i);
-    std::string apple = "apple_" + std::string(str);
+    s  // printf(str, "%d", i);
+        std::string apple = "apple_" + std::string(str);
     // std::string xigua = "xigua_" + std::string(str);
     SellTask sell_task_1(SellFruit, apple);
     // SellTask sell_task_2(SellFruit, xigua);
@@ -54,7 +54,7 @@ class Foo {
   static void func(void* arg) {
     Foo* ptr = (Foo*)arg;
     int a = ptr->a_;
-    printf("%d\n", a);
+    // printf("%d\n", a);
   }
 
  private:

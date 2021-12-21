@@ -1,13 +1,13 @@
 #include "thread_pool.h"
 #include <pthread.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <deque>
+#include <iostream>
 #include <string>
 
 void SellFruit(const std::string& name) {
-  // printf("sell %s\n", name.c_str());
+  // // printf("sell %s\n", name.c_str());
 }
 
 void* ThreadPool::Run(void* arg) {
@@ -21,7 +21,7 @@ void* ThreadPool::Run(void* arg) {
     task->Run();
     task_queue_.pop_front();
     // 有时反应不过来会出现重复写的情形,原因待查
-    printf("pool: %s, %u execute task.\n", ptr->name_.c_str(), (unsigned int)tid);
+    // printf("pool: %s, %u execute task.\n", ptr->name_.c_str(), (unsigned int)tid);
     pthread_mutex_unlock(&mutex_);
     sleep(rand() % 3);  // 便于观察,debug用
   }
@@ -29,10 +29,10 @@ void* ThreadPool::Run(void* arg) {
 
 void ThreadPool::StopAll() {
   if (!is_running_) {
-    printf("Alreaady stopped!\n");
+    // printf("Alreaady stopped!\n");
     return;
   }
-  printf("pool size: %d\n", (int)thread_pool_.size());
+  // printf("pool size: %d\n", (int)thread_pool_.size());
   for (int i = 0; i < thread_pool_.size(); ++i)
     pthread_join(thread_pool_[i], nullptr);
 }

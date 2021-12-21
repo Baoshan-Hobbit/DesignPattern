@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include "macro.h"
 
 // c++接口的实现:
 // 1) 不显示定义构造函数
@@ -10,17 +9,16 @@
 // 4) 只有静态常量数据成员(字面值)
 class AbstractProduct {
  public:
-  virtual ~AbstractProduct() {
-  }  // 显示定义父类虚析构函数,子类可直接调用
+  virtual ~AbstractProduct() = default;  // 显示定义父类虚析构函数,子类可直接调用
   virtual void use() = 0;
+
+  static constexpr const char* kGroup = "DemoProduct";
 };
 
 class Product1 : public AbstractProduct {
  public:
-  explicit Product1(std::string name) : name_(name) {
+  explicit Product1(const std::string& name) : name_(name) {
   }
-  DISALLOW_COPY_AND_ASSIGN(Product1);
-
   void use() override;
 
  private:
@@ -29,10 +27,8 @@ class Product1 : public AbstractProduct {
 
 class Product2 : public AbstractProduct {
  public:
-  explicit Product2(std::string name) : name_(name) {
+  explicit Product2(const std::string& name) : name_(name) {
   }
-  DISALLOW_COPY_AND_ASSIGN(Product2);
-
   void use() override;
 
  private:

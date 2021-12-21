@@ -1,6 +1,6 @@
 #include "design_pattern/behavior.h"
 
-#include <stdio.h>
+#include <iostream>
 
 void TestBehavior() {
   // ConcretePublisher concrete_publisher;
@@ -12,7 +12,7 @@ void TestBehavior() {
   // concrete_publisher.Notify();
   // concrete_publisher.set_state(3);
   // concrete_publisher.Detatch(&concrete_subscriber_b);
-  // printf("list size: %d\n", static_cast<int>(concrete_publisher.GetSize()));
+  // // printf("list size: %d\n", static_cast<int>(concrete_publisher.GetSize()));
   // concrete_publisher.Notify();
 
   // Receiver receiver;
@@ -36,15 +36,15 @@ void TestBehavior() {
   // context.Run();
 
   Context context;
-  printf("%s\n", context.get_state());
+  // printf("%s\n", context.get_state());
   context.PassiveOpen();
-  printf("%s\n", context.get_state());
+  // printf("%s\n", context.get_state());
   context.ActiveOpen();
-  printf("%s\n", context.get_state());
+  // printf("%s\n", context.get_state());
   context.SynRecv();
-  printf("%s\n", context.get_state());
+  // printf("%s\n", context.get_state());
   context.Close();
-  printf("%s\n", context.get_state());
+  // printf("%s\n", context.get_state());
 
   // ConcreteCollege college_a;
   // ConcreteCollege college_b;
@@ -58,7 +58,7 @@ void TestBehavior() {
   // std::unique_ptr<Iterator<int> > it(nums.CreateIterator());
   // while (!it->IsLast()) {
   //  // printf易产生段错误,比如使用%d打印一个空指针的解引用
-  //  printf("%d\n", *(it->GetCurrent()));
+  //  // printf("%d\n", *(it->GetCurrent()));
   //  it->Next();
   //}
 

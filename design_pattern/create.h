@@ -149,7 +149,7 @@ class ConcretePrototype : public Prototype {
   DISALLOW_COPY_AND_ASSIGN(ConcretePrototype);
 
   void OtherMethod() {
-    printf("other method.\n");
+    // printf("other method.\n");
   }
   void set_big_element(const std::string& elem) {
     big_element_ = elem;

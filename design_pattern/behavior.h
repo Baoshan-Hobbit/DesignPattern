@@ -542,7 +542,7 @@ class TemplateProcess {
     Step2();
   }
   void FixedStep() {
-    printf("fixed step in template.\n");
+    // printf("fixed step in template.\n");
   }
 
  protected:
@@ -558,10 +558,10 @@ class ConcreteProcessA : public TemplateProcess {
 
  private:
   void Step1() override {
-    printf("ConcreteProcessA.Step1()\n");
+    // printf("ConcreteProcessA.Step1()\n");
   }
   void Step2() override {
-    printf("ConcreteProcessA.Step2()\n");
+    // printf("ConcreteProcessA.Step2()\n");
   }
 };
 
@@ -573,10 +573,10 @@ class ConcreteProcessB : public TemplateProcess {
 
  private:
   void Step1() override {
-    printf("ConcreteProcessB.Step1()\n");
+    // printf("ConcreteProcessB.Step1()\n");
   }
   void Step2() override {
-    printf("ConcreteProcessB.Step2()\n");
+    // printf("ConcreteProcessB.Step2()\n");
   }
 };
 
@@ -608,7 +608,7 @@ class Originator {
     label_ = memory->label_;
   }
   void Show() {
-    printf("%s in pos: (%d, %d)\n", label_.c_str(), x_, y_);
+    // printf("%s in pos: (%d, %d)\n", label_.c_str(), x_, y_);
   }
 
  private:
