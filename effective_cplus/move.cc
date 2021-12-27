@@ -46,6 +46,7 @@ class FlowerManager {
     other.flower_ = nullptr;
   }
 
+  /*
   FlowerManager& operator=(const FlowerManager& other) {
     std::cout << "copy assignment" << std::endl;
     if (this != &other) {
@@ -70,6 +71,12 @@ class FlowerManager {
       flower_ = other.flower_;
       other.flower_ = nullptr;
     }
+    return *this;
+  }
+  */
+
+  FlowerManager& operator=(FlowerManager other) {
+    std::swap(flower_, other.flower_);
     return *this;
   }
 
