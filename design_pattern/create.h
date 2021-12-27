@@ -1,27 +1,27 @@
 #pragma once
 
 #include <memory>
-
+#include <unordered_map>
 #include "design_pattern/product.h"
-#include "macro.h"
+
+enum class ProductType {
+    PT_A, PT_B, PT_C, Unknown
+};
+
+const std::unordered_map<std::string, ProductType> product_type_table = {
+    {"PT_A", ProductType::PT_A},
+    {"PT_B", ProductType::PT_B},
+    {"PT_C", ProductType::PT_C}
+};
+
+struct ProductConfig {
+    std::string type_name;
+    std::string setting;
+};
 
 class SimpleFactory {
  public:
-  // 单例模式,注意返回引用
-  static SimpleFactory& GetInstance() {
-    static SimpleFactory inst_factory;
-    return inst_factory;
-  }
-  DISALLOW_COPY_AND_ASSIGN(SimpleFactory);
-
-  AbstractProduct* CreateProduct(int arg);
-  // deprecated
-  // std::shared_ptr<AbstractProduct> CreateProduct(int arg);
-  // 函数中创建对象必须在堆上使用new关键字,只返回指针,由消费者决定生命周期
-
- private:
-  SimpleFactory() {
-  }
+  ProductPtr CreateProduct(const ProductConfig& config);
 };
 
 class AbstractFactory {

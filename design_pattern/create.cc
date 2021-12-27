@@ -2,6 +2,14 @@
 #include <memory>
 #include "design_pattern/product.h"
 
+ProductType get_product_type(const std::string& product_type_str) {
+    auto it = product_type_table.find(product_type_str);
+    if (it != product_type_table.end()) {
+        return it->second;
+    } 
+    return ProductType::Unknown;
+}
+
 AbstractProduct* SimpleFactory::CreateProduct(int arg) {
   AbstractProduct* abstract_product(nullptr);
   switch (arg) {

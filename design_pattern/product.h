@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 // c++接口的实现:
@@ -14,6 +15,8 @@ class AbstractProduct {
 
   static constexpr const char* kGroup = "DemoProduct";
 };
+
+using ProductPtr = std::shared_ptr<AbstractProduct>;
 
 class Product1 : public AbstractProduct {
  public:
