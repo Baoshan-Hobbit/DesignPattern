@@ -14,17 +14,8 @@ add_executable(toy ${main_srcs} ${effective_cplus_srcs})
 
 enable_testing()
 
-################ download gtest ################
-include(FetchContent)
-FetchContent_Declare(
-  	googletest
-  	GIT_REPOSITORY https://github.com/google/googletest.git
-  	GIT_TAG release-1.10.0
-)
-FetchContent_MakeAvailable(googletest)
-
 ################ build unittest ################
-set(BUILD_TESTING ON)
+set(BUILD_TESTING OFF)
 if (DEFINED ENV{BUILD_TESTING})
   message(STATUS "use env BUILD_TESTING: $ENV{BUILD_TESTING}")
   set(BUILD_TESTING $ENV{BUILD_TESTING})
@@ -32,5 +23,15 @@ endif ()
 
 if (BUILD_TESTING)
   message(STATUS "BUILD_TESTING: ON")
+
+  ################ download gtest ################
+  include(FetchContent)
+  FetchContent_Declare(
+      googletest
+      GIT_REPOSITORY https://github.com/google/googletest.git
+      GIT_TAG release-1.10.0
+  )
+  FetchContent_MakeAvailable(googletest)
+
   add_subdirectory(test)
 endif ()

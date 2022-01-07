@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 struct Flower {
   Flower() = default;
@@ -84,20 +85,88 @@ class FlowerManager {
   Flower* flower_;
 };
 
-int main() {
-  // try {
-  //     FlowerContainer fc;
-  //     std::cout << (fc.flower_ == nullptr) << std::endl;
-  // } catch (std::exception& e) {
-  //     std::cout << "caught exception, msg: " << e.what() << std::endl;
+class MyContainer {
+ public:
+  MyContainer(size_t num) : ids_(num, 3), favor_id_(5) {
+    std::cout << "constructor" << std::endl;
+  }
+
+  int get_favor_id() {
+    return favor_id_;
+  }
+
+  // ~MyContainer() {
+  //   std::cout << "destruct my_container" << std::endl;
   // }
 
-  FlowerManager fm_1;
-  FlowerManager fm_2(2);
-  FlowerManager fm_3(fm_1);
-  fm_3 = fm_2;
-  FlowerManager fm_4(std::move(fm_1));
-  fm_4 = std::move(fm_2);
+  // MyContainer(const MyContainer& other) {
+  //   std::cout << "copy constructor" << std::endl;
+  // }
+  // MyContainer(MyContainer&& other) noexcept {
+  //   std::cout << "move constructor" << std::endl;
+  // }
 
-  return 0;
+  void print() {
+    for (int id : ids_) {
+      std::cout << id << ",";
+    }
+    std::cout << std::endl;
+  }
+
+ private:
+  std::vector<int> ids_;
+  int favor_id_;
+  char* word_;
+};
+
+void processContainer(MyContainer&& mc) {
+  // mc.print();
 }
+
+void processContainer(const MyContainer& mc) {
+}
+
+template <typename T>
+void template_func(T&& t) {
+}
+
+FlowerManager create_fm() {
+  FlowerManager fm;
+  // return std::move(fm);
+  return fm;
+}
+
+// int main() {
+// try {
+//     FlowerContainer fc;
+//     std::cout << (fc.flower_ == nullptr) << std::endl;
+// } catch (std::exception& e) {
+//     std::cout << "caught exception, msg: " << e.what() << std::endl;
+// }
+
+// FlowerManager fm_1;
+// FlowerManager fm_2(2);
+// FlowerManager fm_3(fm_1);
+// fm_3 = fm_2;
+// FlowerManager fm_4(std::move(fm_1));
+// fm_4 = std::move(fm_2);
+// std::cout << "----seperate----" << std::endl;
+
+// MyContainer mc_1(3);
+// mc_1.print();
+
+// MyContainer mc_2(mc_1);
+// std::cout << "before move, mc_1 favor_id: " << mc_1.get_favor_id() << std::endl;
+// MyContainer mc_3(std::move(mc_1));
+// std::cout << "after move, mc_1 favor_id: " << mc_1.get_favor_id() << std::endl;
+// mc_1.print();
+
+// processContainer(mc_1);
+// processContainer(std::move(mc_1));
+// template_func(mc_1);
+// template_func(std::move(mc_1));
+
+//   auto result = create_fm();
+
+//   return 0;
+// }
