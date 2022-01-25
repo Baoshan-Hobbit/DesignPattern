@@ -1,4 +1,6 @@
+#include <exception>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 #include <string>
 #include <memory>
@@ -66,12 +68,40 @@ void test_async_shared_ptr() {
   use_ref_func(*context_ptr);
 }
 
+struct Foo {
+  ~Foo() {
+    std::cout << "destruct Foo" << std::endl;
+  }
+};
+
+struct Bar {
+  Bar(const Foo& foo) : foo_(foo){
+    throw std::runtime_error("exception");
+  }
+
+  Foo foo_;
+};
+
+void f() {
+  throw std::runtime_error("f exception");
+}
 
 int main() {
-  test_async_shared_ptr();
+   try {
+    Foo foo;
+    Bar bar(foo);
+    f();
+    throw std::runtime_error("exception");
+   } catch (std::exception& e) {
+     std::cout << "catch std exception" << std::endl;
+   } catch (...) {
+     std::cout << "unknown exception" << std::endl;
+   }
+  
+  // test_async_shared_ptr();
 //   Info info;
 //   info.term = "hello";
 //   test_push_back_ref(info);
 
-//   return 0;
+  return 0;
 }
