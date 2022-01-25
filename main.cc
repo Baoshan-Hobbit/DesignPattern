@@ -6,6 +6,8 @@
 #include "effective_cplus/inheritage.h"
 #include "effective_cplus/smart_pointer.h"
 
+#include "design_pattern/factory_practice/core/config/feature_config.h"
+
 class Resource {
  public:
   int a_;
@@ -72,6 +74,19 @@ void test_smart_pointer() {
   smart_pointer::Base* another_resource = shared_res_manager.get_raw_resource();
 }
 
+void test_config() {
+  using namespace practice;
+  
+  std::string config = R"({
+    "feature_name": "general",
+    "depend_tables": ["table_a", "table_b"]
+    })";
+
+    FeatureConfig feature_conf(config);
+    std::cout << feature_conf.get_feature_name() << std::endl;
+    std::cout << feature_conf.get_depend_tables()[0] << std::endl;
+}
+
 
 int main() {
   // test_confused_resource();
@@ -80,7 +95,8 @@ int main() {
 
   // test_inheritage();
 
-  test_smart_pointer();
+  // test_smart_pointer();
+  test_config();
 
   return 0;
 }

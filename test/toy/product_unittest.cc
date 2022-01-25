@@ -5,7 +5,7 @@ void ProcessProduct(AbstractProduct* product_ptr) {
   product_ptr->use();
 }
 
-TEST(ToyTest, Product) {
+TEST(ProductTest, Product) {
   Product1 product_1("p1");
   Product2 product_2("p2");
   ProcessProduct(&product_1);
