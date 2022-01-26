@@ -10,17 +10,9 @@
 */
 class Interface {
  public:
-  Interface() = default;
   virtual ~Interface() = default;
-
- public:
   virtual void pipeline() = 0;
- 
- public:
-  void common_api_func();
-
- private:
-  int mem_a_; // maybe used by common_api_func
+  virtual void common_api_func() = 0;
 };
 
 /**
@@ -28,10 +20,7 @@ class Interface {
 */
 class Base : public Interface {
  public:
-  Base() = default;
   virtual ~Base() = default;
-
- public:
   virtual void pipeline() override;
 
  protected:
@@ -47,6 +36,7 @@ class General : public Base {
  public:
   General();
   virtual ~General() = default;
+  virtual void common_api_func() override;
 
  protected:
   // pipeline 的每一步的默认实现 

@@ -9,12 +9,12 @@ void Base::pipeline() {
   post_process();
 }
 
-void Interface::common_api_func() {
-  std::cout << "common api func" << std::endl;
-}
-
 General::General() {
   std::cout << "general init, common logic" << std::endl;
+}
+
+void General::common_api_func() {
+  std::cout << "common api func" << std::endl;
 }
 
 void General::pre_process() {
