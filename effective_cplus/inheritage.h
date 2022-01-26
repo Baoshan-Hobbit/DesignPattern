@@ -6,7 +6,7 @@
 */
 
 /**
- * @brief 显式定义 api: init && pipeline
+ * @brief 显式定义 api: pipeline
 */
 class Interface {
  public:
@@ -14,14 +14,13 @@ class Interface {
   virtual ~Interface() = default;
 
  public:
-  virtual bool init() = 0;
   virtual void pipeline() = 0;
  
  public:
   void common_api_func();
 
  private:
-  int mem_a_;
+  int mem_a_; // maybe used by common_api_func
 };
 
 /**
@@ -46,14 +45,8 @@ class Base : public Interface {
 */
 class General : public Base {
  public:
-  General() = default;
+  General();
   virtual ~General() = default;
-
- public:
-  virtual bool init() override; // 抽象出子类的公共初始化逻辑
-
- protected:
-  virtual bool do_init(); // do nothing
 
  protected:
   // pipeline 的每一步的默认实现 
@@ -64,12 +57,9 @@ class General : public Base {
 
 class Specific : public General {
  public:
-  Specific() = default;
+  Specific();
   ~Specific() = default;
  
- protected:
-  virtual bool do_init() override; // 子类特有的初始化逻辑
-
  protected:
   virtual void pre_process() override; // 可在默认实现上增加逻辑
   virtual void post_process() override; // 可修改默认实现的逻辑

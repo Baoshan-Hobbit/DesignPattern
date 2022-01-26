@@ -13,14 +13,8 @@ void Interface::common_api_func() {
   std::cout << "common api func" << std::endl;
 }
 
-
-bool General::init() {
+General::General() {
   std::cout << "general init, common logic" << std::endl;
-  return do_init();
-}
-
-bool General::do_init() {
-  return true; // do nothing
 }
 
 void General::pre_process() {
@@ -35,10 +29,8 @@ void General::post_process() {
   std::cout << "general post_process" << std::endl;
 }
 
-
-bool Specific::do_init() {
+Specific::Specific() : General() {
   std::cout << "specific init, personal logic" << std::endl;
-  return true;
 }
 
 void Specific::pre_process() {
