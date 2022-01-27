@@ -6,7 +6,7 @@
 #include "effective_cplus/inheritage.h"
 #include "effective_cplus/smart_pointer.h"
 
-#include "design_pattern/factory_practice/core/config/feature_config.h"
+#include "design_pattern/factory_practice/impl/general_feature.h"
 
 class Resource {
  public:
@@ -32,7 +32,6 @@ void test_string() {
 
 void test_inheritage() {
   std::unique_ptr<Interface> interface_ptr(new Specific());
-  interface_ptr->init();
   interface_ptr->pipeline();
   interface_ptr->common_api_func();
 }
@@ -78,13 +77,17 @@ void test_config() {
   using namespace practice;
   
   std::string config = R"({
-    "feature_name": "general",
+    "feature": "general",
     "depend_tables": ["table_a", "table_b"]
     })";
 
-    FeatureConfig feature_conf(config);
-    std::cout << feature_conf.get_feature_name() << std::endl;
-    std::cout << feature_conf.get_depend_tables()[0] << std::endl;
+  FeatureConfig feature_conf(config);
+  // std::cout << feature_conf.get_feature_name() << std::endl;
+  // std::cout << feature_conf.get_depend_table_names()[0] << std::endl;
+  GeneralFeature general_feature(feature_conf);
+  general_feature.beginRequest();
+  general_feature.evaluate();
+  general_feature.endRequest();
 }
 
 
