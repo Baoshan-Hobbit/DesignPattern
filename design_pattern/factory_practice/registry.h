@@ -6,8 +6,9 @@
 
 namespace practice {
 
+template <typename R, typename... Args>
 class FunctionEntry {
-  using FuncType = std::function<FeaturePtr(const FeatureConfig&)>;
+  using FuncType = std::function<R(Args...)>;
 
  public:
   ~FunctionEntry() {
@@ -67,4 +68,14 @@ EntryType* Registry<EntryType>::find(const std::string& name) {
   return nullptr;
 }
 
+#define STRINGIZE_NX(A) #A
+#define STRINIZE(A) STRINGIZE_NX(A)
+
+#define REGISTER_GLOBAL(ItemPtr, ItemConfig, ItemType, ItemName) \
+  using ItemType##FuncEntry = FunctionEntry<ItemPtr, const ItemConfig&>; \
+  const ItemType##FuncEntry& func_entry_##ItemName = Registry<ItemType##FuncEntry>::get_instance() \
+                                                            ->register_func(STRINIZE(ItemName)) \
+                                                            .set_func([](const ItemConfig& item_config) -> ItemPtr { \
+                                                              return std::make_unique<ItemName>(item_config); \
+                                                            })
 }  // namespace practice

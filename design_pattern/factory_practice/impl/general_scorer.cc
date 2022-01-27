@@ -1,7 +1,10 @@
 #include "design_pattern/factory_practice/impl/general_scorer.h"
+#include "design_pattern/factory_practice/registry.h"
 #include <iostream>
 
 namespace practice {
+
+REGISTER_GLOBAL(ScorerPtr, ScorerConfig, Scorer, GeneralScorer);
 
 GeneralScorer::GeneralScorer(const ScorerConfig& scorer_config) {
   std::cout << "[general scorer] construct" << std::endl;

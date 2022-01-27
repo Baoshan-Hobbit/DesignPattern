@@ -4,17 +4,16 @@
 
 namespace practice {
 
-const FunctionEntry& func_entry = Registry<FunctionEntry>::get_instance()
+/*
+using FeatureFuncEntry = FunctionEntry<FeaturePtr, const FeatureConfig&>;
+const FeatureFuncEntry& func_entry_GeneralFeature = Registry<FeatureFuncEntry>::get_instance()
                                                           ->register_func("GeneralFeature")
                                                           .set_func([](const FeatureConfig& feature_config) -> FeaturePtr {
                                                             return std::make_unique<GeneralFeature>(feature_config);
                                                           });
+*/
 
-const FunctionEntry& func_entry_2 = Registry<FunctionEntry>::get_instance()
-                                                          ->register_func("GeneralFeature2")
-                                                          .set_func([](const FeatureConfig& feature_config) -> FeaturePtr {
-                                                            return std::make_unique<GeneralFeature>(feature_config);
-                                                          });
+REGISTER_GLOBAL(FeaturePtr, FeatureConfig, Feature, GeneralFeature);
 
 GeneralFeature::GeneralFeature(const FeatureConfig& feature_config) {
   std::cout << "[general feature] construct" << std::endl;
