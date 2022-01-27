@@ -6,8 +6,8 @@ namespace practice {
 
 /*
 using FeatureFuncEntry = FunctionEntry<FeaturePtr, const FeatureConfig&>;
-const FeatureFuncEntry& func_entry_GeneralFeature = Registry<FeatureFuncEntry>::get_instance()
-                                                          ->register_func("GeneralFeature")
+const FeatureFuncEntry& func_entry_GeneralFeature2 = Registry<FeatureFuncEntry>::get_instance()
+                                                          ->register_func("GeneralFeature2")
                                                           .set_func([](const FeatureConfig& feature_config) -> FeaturePtr {
                                                             return std::make_unique<GeneralFeature>(feature_config);
                                                           });

@@ -7,6 +7,7 @@
 #include "effective_cplus/smart_pointer.h"
 
 #include "design_pattern/factory_practice/impl/general_feature.h"
+#include "design_pattern/factory_practice/manager.h"
 
 class Resource {
  public:
@@ -77,17 +78,27 @@ void test_config() {
   using namespace practice;
   
   std::string config = R"({
-    "feature": "general",
+    "feature": "GeneralFeature",
     "depend_tables": ["table_a", "table_b"]
     })";
 
   FeatureConfig feature_conf(config);
   // std::cout << feature_conf.get_feature_name() << std::endl;
   // std::cout << feature_conf.get_depend_table_names()[0] << std::endl;
-  GeneralFeature general_feature(feature_conf);
-  general_feature.beginRequest();
-  general_feature.evaluate();
-  general_feature.endRequest();
+
+  // GeneralFeature general_feature(feature_conf);
+  // general_feature.beginRequest();
+  // general_feature.evaluate();
+  // general_feature.endRequest();
+
+  std::vector<FeatureConfig> feature_configs{feature_conf};
+  FeatureManager feature_manager(feature_configs); 
+  FeatureInterface* feat = feature_manager.find("general");
+  if (feat) {
+    feat->beginRequest();
+    feat->evaluate();
+    feat->endRequest();
+  }
 }
 
 

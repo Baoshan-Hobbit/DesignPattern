@@ -10,6 +10,8 @@ aux_source_directory(. main_srcs)
 aux_source_directory(effective_cplus effective_cplus_srcs)
 file(GLOB_RECURSE factory_practice_srcs RELATIVE ${CMAKE_SOURCE_DIR} "design_pattern/factory_practice/*.cc")
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2")
+
 add_library(design_pattern_lib STATIC design_pattern/product.cc)
 add_executable(main ${main_srcs} ${effective_cplus_srcs} ${factory_practice_srcs})
 

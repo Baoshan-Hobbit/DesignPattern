@@ -8,9 +8,9 @@ namespace practice {
 
 template <typename R, typename... Args>
 class FunctionEntry {
+ public:
   using FuncType = std::function<R(Args...)>;
 
- public:
   ~FunctionEntry() {
     std::cout << "[func_entry] destructor" << std::endl;
   }
@@ -28,9 +28,10 @@ class FunctionEntry {
 
 template <typename EntryType>
 class Registry {
-  using EntryPtr = std::unique_ptr<EntryType>;
-
  public:
+  using EntryPtr = std::unique_ptr<EntryType>;
+  using FuncType = typename EntryType::FuncType;
+
   Registry(const Registry&) = delete;
   Registry& operator=(const Registry&) = delete;
   Registry(Registry&&) = delete;
@@ -38,7 +39,17 @@ class Registry {
 
   static Registry* get_instance();
   EntryType& register_func(const std::string& name);
-  EntryType* find(const std::string& name);
+  const FuncType* find(const std::string& name) {
+    auto iter = func_table_.find(name);
+    std::cout << "name: " << name << ", size: " << func_table_.size() << std::endl;
+    if (iter != func_table_.end()) {
+      std::cout << "found in func_table" << std::endl;
+      const FuncType& func = iter->second->get_func();
+      return &func;
+    }
+    std::cout << "not found in func_table" << std::endl;
+    return nullptr;
+  }
 
  private:
   Registry() = default;
@@ -50,22 +61,15 @@ class Registry {
 template <typename EntryType>
 Registry<EntryType>* Registry<EntryType>::get_instance() {
   static Registry<EntryType> instance;
+  std::cout << "address: " << &instance << std::endl;
   return &instance;
 }
 
 template <typename EntryType>
 EntryType& Registry<EntryType>::register_func(const std::string& name) {
   func_table_[name] = std::make_unique<EntryType>();
+  std::cout << "register: " << name << ", size: " << func_table_.size() << std::endl;
   return *(func_table_[name]);
-}
-
-template <typename EntryType>
-EntryType* Registry<EntryType>::find(const std::string& name) {
-  auto iter = func_table_.find(name);
-  if (iter != func_table_.end()) {
-    return (iter->second).get();
-  }
-  return nullptr;
 }
 
 #define STRINGIZE_NX(A) #A
