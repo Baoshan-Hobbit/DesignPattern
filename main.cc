@@ -7,7 +7,7 @@
 #include "effective_cplus/smart_pointer.h"
 
 #include "design_pattern/factory_practice/impl/general_feature.h"
-#include "design_pattern/factory_practice/manager.h"
+#include "design_pattern/factory_practice/core/manager.h"
 
 class Resource {
  public:

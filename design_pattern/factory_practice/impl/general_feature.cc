@@ -1,5 +1,5 @@
 #include "design_pattern/factory_practice/impl/general_feature.h"
-#include "design_pattern/factory_practice/registry.h"
+#include "design_pattern/factory_practice/core/registry.h"
 #include <iostream>
 
 namespace practice {

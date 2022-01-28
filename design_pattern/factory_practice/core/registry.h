@@ -2,6 +2,7 @@
 
 #include "design_pattern/factory_practice/core/feature_interface.h"
 #include "design_pattern/factory_practice/core/config/feature_config.h"
+#include "design_pattern/factory_practice/core/types.h"
 #include <iostream>
 
 namespace practice {
@@ -14,6 +15,7 @@ class FunctionEntry {
   ~FunctionEntry() {
     std::cout << "[func_entry] destructor" << std::endl;
   }
+
   FunctionEntry& set_func(const FuncType& func) {
     func_ = func;
     return *this;
@@ -72,11 +74,8 @@ EntryType& Registry<EntryType>::register_func(const std::string& name) {
   return *(func_table_[name]);
 }
 
-#define STRINGIZE_NX(A) #A
-#define STRINIZE(A) STRINGIZE_NX(A)
-
 #define REGISTER_GLOBAL(ItemPtr, ItemConfig, ItemType, ItemName) \
-  using ItemType##FuncEntry = FunctionEntry<ItemPtr, const ItemConfig&>; \
+  ALIAS_FUNC_ENTRY(ItemPtr, ItemConfig, ItemType); \
   const ItemType##FuncEntry& func_entry_##ItemName = Registry<ItemType##FuncEntry>::get_instance() \
                                                             ->register_func(STRINIZE(ItemName)) \
                                                             .set_func([](const ItemConfig& item_config) -> ItemPtr { \
